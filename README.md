@@ -587,11 +587,11 @@ BUILD SUCCESSFUL in 725ms
 
 ---
 
-Hello. I'm was studying `spring-data-jpa` recently, and I faced weird errors.
+Hello. I was studying `spring-data-jpa` recently, and I faced weird errors.
 
 - [`Question on StackOverflow`](https://stackoverflow.com/questions/79105118/circular-dependency-while-injecting-jpa-repository-to-implementation)
 
-In my opinion, there's 2 possible error, bind with [`Custom repository`](https://docs.spring.io/spring-data/jpa/reference/repositories/custom-implementations.html) autoconfiguration.
+In my opinion, there's 2 possible bug, bind with [`Custom repository`](https://docs.spring.io/spring-data/jpa/reference/repositories/custom-implementations.html) autoconfiguration.
 
 - [`Error 1 : Circular dependency while there isn't`](#error-1---circular-dependency-while-there-isnt) - [`circular-dependency-error branch`](https://github.com/jbw9964/testing/tree/circular-dependency-error)
 - [`Error 2 : Loading non-bean instance to spring context`](#error-2---loading-non-bean-instance-to-spring-context) - [`non-bean-class-loaded-error branch`](https://github.com/jbw9964/testing/tree/non-bean-class-loaded-error)
@@ -817,7 +817,7 @@ But in console output, `AAAImpl` were loaded to context.
 
 ---
 
-## Possible case
+## Possible cause
 
 When jpa interface `(AAA)` loads to `Spring context`, `spring-data-jpa` searches custom repository due to autoconfiguration.
 
