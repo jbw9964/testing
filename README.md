@@ -15,7 +15,6 @@
 # on project root dir
 $ ./gradlew dependencies
 ```
-- out : 
 ```markdown
 14:53:35: Executing 'dependencies'...
 
