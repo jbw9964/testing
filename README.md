@@ -593,8 +593,8 @@ Hello. I'm was studying `spring-data-jpa` recently, and I faced weird errors.
 
 In my opinion, there's 2 possible error, bind with [`Custom repository`](https://docs.spring.io/spring-data/jpa/reference/repositories/custom-implementations.html) autoconfiguration.
 
-- [`Error 1 : Circular dependency while there isn't`](https://github.com/jbw9964/testing/tree/circular-dependency-error) - `circular-dependency-error branch`
-- [`Error 2 : Loading non-bean instance to spring context`](https://github.com/jbw9964/testing/tree/non-bean-class-loaded-error) - `non-bean-class-loaded-error branch`
+- [`Error 1 : Circular dependency while there isn't`](#error-1---circular-dependency-while-there-isnt) - [`circular-dependency-error branch`](https://github.com/jbw9964/testing/tree/circular-dependency-error)
+- [`Error 2 : Loading non-bean instance to spring context`](#error-2---loading-non-bean-instance-to-spring-context) - [`non-bean-class-loaded-error branch`](https://github.com/jbw9964/testing/tree/non-bean-class-loaded-error)
 
 Those are reproducible, and can be shown via this repository.
 
@@ -875,6 +875,23 @@ However, in source code, it just set `(reader, factory) -> true` so un-excluded 
 ## What I want to be fixed
 
 Following above cause, current `spring-data-jpa` can load unintended class to spring context. [`(Error 2)`](#error-2---loading-non-bean-instance-to-spring-context)
+
+```java
+// Only when jpa interface BBB extends AAA,
+// AAAImpl should be loaded to context.
+interface BBB extends JpaRepository< ... >, AAA {}
+
+interface AAA {}
+class AAAImpl {}
+```
+```java
+// Not on like this.
+interface AAA extends JpaRepository< ... > {}
+
+class AAAImpl {}
+```
+
+
 
 In order to avoid such situation, one of the following should be added to `spring-data-jpa`. `(At least on my thought)`
 - Replace `addIncludeFilter((reader, factory) -> true)` at `CustomRepositoryImplementationDetector` to another, so that only intended class added to custom repository candidate.
